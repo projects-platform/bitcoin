@@ -11,7 +11,7 @@ import (
 type Block struct {
 	Timestamp    int64  // 区块生成的时间戳
 	Data         []byte // 区块存储的数据
-	PrvBlockHash []byte // 前一个区块的 Hash 值
+	PrevBlockHash []byte // 前一个区块的 Hash 值
 	Hash         []byte // 区块自身 Hash 值，用于校验区块数据有效
 }
 
@@ -21,7 +21,7 @@ func (block *Block) SetHash() {
 	timestamp := []byte(strconv.FormatInt(block.Timestamp, 10))
 
 	// 拼接所有字节
-	headers := bytes.Join([][]byte{block.PrvBlockHash, block.Data, timestamp}, []byte{})
+	headers := bytes.Join([][]byte{block.PrevBlockHash, block.Data, timestamp}, []byte{})
 
 	// 使用 sha256 转为新的 Hash 值
 	block.Hash = sha256.Sum256(headers)[:]
@@ -30,10 +30,15 @@ func (block *Block) SetHash() {
 /**
  * 创建新的区块
  * @param {string} data 区块数据
- * @param {[]byte} prvBlockHash 上一个区块的 Hash 值
+ * @param {[]byte} prevBlockHash 上一个区块的 Hash 值
  */
-func NewBlock(data string, prvBlockHash []byte) *Block {
-	block := &Block{time.Now().Unix(), []byte(data), prvBlockHash, []byte{}}
+func NewBlock(data string, prevBlockHash []byte) *Block {
+	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}}
 	block.SetHash()
 	return block
+}
+
+// 生成创始区块方法
+func NewGenesisBlock() *Block{
+	return NewBlock("Genesis Block", []byte{})
 }
