@@ -10,7 +10,7 @@ type Blockchain struct {
  * 添加区块方法
  * @param {string} data 区块数据
  */
-func (bc *Blockchain) AddBlock(data string){
+func (bc *Blockchain) AppendBlock(data string){
 	// 获取上一个区块的数据
 	prevBlock := bc.Blocks[len(bc.Blocks) - 1]
 
