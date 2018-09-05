@@ -24,7 +24,10 @@ func (block *Block) SetHash() {
 	headers := bytes.Join([][]byte{block.PrevBlockHash, block.Data, timestamp}, []byte{})
 
 	// 使用 sha256 转为新的 Hash 值
-	block.Hash = sha256.Sum256(headers)[:]
+	hash := sha256.Sum256(headers)
+
+	// 将生成的 Hash 值赋值给 当前区块
+	block.Hash = hash[:]
 }
 
 /**
@@ -32,7 +35,7 @@ func (block *Block) SetHash() {
  * @param {string} data 区块数据
  * @param {[]byte} prevBlockHash 上一个区块的 Hash 值
  */
-func NewBlock(data string, prevBlockHash []byte) *Block {
+func newBlock(data string, prevBlockHash []byte) *Block {
 	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}}
 	block.SetHash()
 	return block
@@ -40,5 +43,5 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 
 // 生成创始区块方法
 func NewGenesisBlock() *Block {
-	return NewBlock("Genesis Block", []byte{})
+	return newBlock("Genesis Block", []byte{})
 }

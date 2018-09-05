@@ -14,8 +14,13 @@ func (bc *Blockchain) AppendBlock(data string) {
 	prevBlock := bc.Blocks[len(bc.Blocks)-1]
 
 	// 生成新的区块
-	newBlock := NewBlock(data, prevBlock.Hash)
+	newBlock := newBlock(data, prevBlock.Hash)
 
 	// 生成新的区块链
 	bc.Blocks = append(bc.Blocks, newBlock)
+}
+
+// 创建区块链
+func NewBlockchain() *Blockchain {
+	return &Blockchain{[]*Block{NewGenesisBlock()}}
 }
