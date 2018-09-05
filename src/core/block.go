@@ -9,10 +9,10 @@ import (
 
 // 定义区块结构
 type Block struct {
-	Timestamp    int64  // 区块生成的时间戳
-	Data         []byte // 区块存储的数据
+	Timestamp     int64  // 区块生成的时间戳
+	Data          []byte // 区块存储的数据
 	PrevBlockHash []byte // 前一个区块的 Hash 值
-	Hash         []byte // 区块自身 Hash 值，用于校验区块数据有效
+	Hash          []byte // 区块自身 Hash 值，用于校验区块数据有效
 }
 
 // 生成 Hash 值方法
@@ -39,6 +39,6 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 }
 
 // 生成创始区块方法
-func NewGenesisBlock() *Block{
+func NewGenesisBlock() *Block {
 	return NewBlock("Genesis Block", []byte{})
 }
