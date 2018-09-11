@@ -1,6 +1,5 @@
 ## BitCoin
 
-
 ## 什么是区块链
 
 &ensp;&ensp;区块链的分类
